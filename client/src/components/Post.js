@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -41,10 +41,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Post({ post }) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const likePost = () => {
+    console.log("Like Post");
   };
 
   return (
@@ -60,7 +64,7 @@ export default function Post({ post }) {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
+        title={post.username}
         subheader="September 14, 2016"
       />
       <CardMedia
@@ -70,13 +74,11 @@ export default function Post({ post }) {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {post.body}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" onClick={likePost}>
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="share">
