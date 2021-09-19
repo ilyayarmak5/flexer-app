@@ -1,14 +1,12 @@
 import { useQuery } from "@apollo/react-hooks";
 import { useContext } from "react";
-import gql from "graphql-tag";
+import { FETCH_POSTS_QUERY } from "../utils/graphql";
 import { AuthContext } from "../context/auth";
 import PostForm from "../components/PostForm";
 
 import Post from "../components/Post";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
-
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +34,7 @@ export default function Home() {
             <Box
               display="flex"
               flexWrap="wrap"
-              justifyContent="space-around"
+              flexDirection="column"
               gap="20px"
             >
               {data.getPosts.map((post) => {
@@ -49,26 +47,3 @@ export default function Home() {
     </div>
   );
 }
-
-const FETCH_POSTS_QUERY = gql`
-  {
-    getPosts {
-      id
-      body
-      createdAt
-      username
-      likeCount
-
-      likes {
-        username
-      }
-      commentCount
-      comments {
-        id
-        username
-        createdAt
-        body
-      }
-    }
-  }
-`;
